@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://addons/brain-lib/NeuralNetwork1DAdam.gd" type="Script" id=1]
+[ext_resource path="res://addons/brain-lib/icons/nn1d_adam.png" type="Texture" id=2]
+[ext_resource path="res://bin/fully_connected.gdns" type="Script" id=3]
+[ext_resource path="res://addons/brain-lib/icons/fc.png" type="Texture" id=4]
+[ext_resource path="res://bin/tanh.gdns" type="Script" id=5]
+[ext_resource path="res://addons/brain-lib/icons/tanh.png" type="Texture" id=6]
+
+[node name="SingleNN" type="Node"]
+
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_icon": ExtResource( 2 )
+}
+input_size = 7
+loss_func = null
+learning_rate = 0.01
+beta1 = 0.9
+beta2 = 0.999
+
+[node name="FullyConnected" type="Node" parent="." index="0"]
+
+script = ExtResource( 3 )
+__meta__ = {
+"_editor_icon": ExtResource( 4 )
+}
+size = 16
+has_bias = true
+
+[node name="Tanh" type="Node" parent="." index="1"]
+
+script = ExtResource( 5 )
+__meta__ = {
+"_editor_icon": ExtResource( 6 )
+}
+
+[node name="FullyConnected2" type="Node" parent="." index="2"]
+
+script = ExtResource( 3 )
+__meta__ = {
+"_editor_icon": ExtResource( 4 )
+}
+size = 1
+has_bias = true
+
+

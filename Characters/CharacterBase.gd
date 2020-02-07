@@ -7,13 +7,14 @@ const ActionClass = preload("res://Characters/ActionBase.gd")
 signal character_death
 
 enum Controller { PLAYER, AI }
-enum AIType { PERCEPTRON, SINGLE, MEMORY, MULTI }
+enum AIType { PERCEPTRON, SINGLE, MEMORY, MULTI, PERCEPTRON_NATIVE, SINGLE_NATIVE, MEMORY_NATIVE, MULTI_NATIVE }
 
 const KNOCKBACK_INITIAL_SPEED = 800
 const KNOCKBACK_DECAY_RATE = 0.6
 const KNOCKBACK_MIN = Vector2(20, 20)
 
-const ai_name = ["Perceptron", "Single", "Memory", "Multi"]
+const ai_name = ["Perceptron", "Single", "Memory", "Multi",
+				 "Single native", "Memory native", "Multi native"]
 
 export(int) var speed = 120
 export(float) var weight = 1

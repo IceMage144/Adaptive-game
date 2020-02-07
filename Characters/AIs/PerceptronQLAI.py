@@ -79,22 +79,12 @@ class PerceptronQLAI(QLAI):
 		self.learning_weights += self.alpha * correction * features
 		self.learning_weights /= self.learning_weights.norm()
 
-		self.logger.push("loss", math.fabs(correction))
-		self.logger.push("max_q_val", next_state_action_value)
-		self.logger.push("reward", reward)
+		self.parent.logger.push("loss", math.fabs(correction))
+		self.parent.logger.push("max_q_val", next_state_action_value.item())
+		self.parent.logger.push("reward", reward)
 
 	# Print some variables for debug here
 	def _on_DebugTimer_timeout(self):
-		super(PerceptronQLAI, self)._on_DebugTimer_timeout()
 		print("------ PerceptronQLAI ------")
-		stats = ["max", "min", "avg"]
-		self.logger.print_stats("update_state", stats)
-		# self.logger.print_stats("max_q_val", stats)
-		# self.logger.print_stats("reward", stats)
-		self.logger.flush("update_state")
-		# self.logger.flush("max_q_val")
-		# self.logger.flush("reward")
-		# print("Max weight: ", util.apply_list_func(self.get_info(), max))
-		# print("Min weight: ", util.apply_list_func(self.get_info(), min))
-		# print("epsilon: {}".format(self.epsilon))
+		super(PerceptronQLAI, self)._on_DebugTimer_timeout()
 		# print(self.get_info())

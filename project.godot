@@ -22,6 +22,10 @@ MonsterDB="*res://Databases/Monsters/MonsterDatabase.tscn"
 SaveManager="*res://Persistence/SaveManager.gd"
 NNParamsManager="*res://Persistence/NNParamsManager.gd"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "brain-lib" )
+
 [gdnative]
 
 singletons=[ "res://pythonscript.gdnlib" ]

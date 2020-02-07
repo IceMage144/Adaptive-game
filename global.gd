@@ -53,17 +53,25 @@ func sample_from_normal_limited(mean, std, limits=[-INF, INF]):
 		X = self.sample_from_normal(mean, std)
 	return X
 
-func choose_one(array, include_null=false):
-	var size = len(array) - int(not include_null)
-	var rand_num = global.randi_range(0, size)
-	if include_null and rand_num == len(array):
+func choose_one(array, include_null=false, a=-1, b=-1):
+	if a == -1:
+		a = 0
+	if b == -1:
+		b = array.size() - 1
+	var size = b - a + int(include_null)
+	var rand_num = global.randi_range(a, a + size)
+	if include_null and rand_num == a + size:
 		return null
 	return array[rand_num]
 
-func sample(array, num, include_null=false):
+func sample(array, num, include_null=false, a=-1, b=-1):
+	if a == -1:
+		a = 0
+	if b == -1:
+		b = array.size()
 	var ret = []
 	for i in range(num):
-		ret.append(self.choose_one(array, include_null))
+		ret.append(self.choose_one(array, include_null, a, b))
 	return ret
 
 func choose(array, num):
@@ -108,6 +116,33 @@ func create_matrix(height, width, fill=null):
 			matrix[i].append(fill)
 	return matrix
 
+func max(array):
+	if array.size() == 0:
+		return null
+	var mx = array[0]
+	for el in array:
+		mx = max(el, mx)
+	return mx
+
+func min(array):
+	if array.size() == 0:
+		return null
+	var mn = array[0]
+	for el in array:
+		mn = min(el, mn)
+	return mn
+
+func argmax(array):
+	if array.size() == 0:
+		return null
+	var mx = array[0]
+	var idx = 0
+	for i in range(1, array.size()):
+		if mx < array[i]:
+			mx = array[i]
+			idx = i
+	return idx
+
 func save_info(nodes):
 	var saveFile = File.new()
 	var saveInfo = []
@@ -130,3 +165,19 @@ func save_info(nodes):
 	saveFile.store_string(JSON.print(saveInfo))
 	saveFile.close()
 
+func sum(array):
+	var sum = 0.0
+	for el in array:
+		sum += el
+	return sum
+
+func norm(array):
+	var sum = 0.0
+	for el in array:
+		sum += el * el
+	return sqrt(sum)
+
+func normalize(array):
+	var norm = self.norm(array)
+	for i in range(array.size()):
+		array[i] /= norm

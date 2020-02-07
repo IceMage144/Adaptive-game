@@ -6,7 +6,7 @@
 [ext_resource path="res://Characters/Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Characters/Slime/Slime.tscn" type="PackedScene" id=5]
 
-[node name="PlayerRobotArena" instance=ExtResource( 1 )]
+[node name="PlayerRobotArena" index="0" instance=ExtResource( 1 )]
 
 script = ExtResource( 2 )
 
@@ -24,6 +24,7 @@ position = Vector2( 363.887, 303.758 )
 ] instance=ExtResource( 5 )]
 
 position = Vector2( 765.332, 298.328 )
+ai_type = 4
 
 [node name="TimeoutTimer" type="Timer" parent="." index="3"]
 

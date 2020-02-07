@@ -18,7 +18,6 @@ class QLAI(Node):
 	def _ready(self):
 		self.add_to_group("has_arch")
 		self.parent = self.get_parent()
-		self.logger = util.Logger()
 		self.time = 0.0
 
 	def init(self, params):
@@ -62,7 +61,7 @@ class QLAI(Node):
 		NNParamsManager.set_params(self.network_key, ascii_data)
 	
 	def get_loss(self):
-		return util.py2gdArray(self.logger.get_stored("loss"))
+		return util.py2gdArray(self.parent.logger.get_stored("loss"))
 	
 	def get_name(self):
 		return self.parent.name
@@ -71,8 +70,6 @@ class QLAI(Node):
 		return self.last_action
 
 	def update_state(self, last=False, timeout=False):
-		ts = time.time()
-
 		state = self.parent.get_state()
 
 		if self.learning_activated:
@@ -84,9 +81,6 @@ class QLAI(Node):
 		self.last_state = state
 		
 		self._update_epsilon()
-
-		te = time.time()
-		self.logger.push("update_state", (te - ts) * 1000)
 
 	# Abstract
 	def _compute_action_from_q_values(self, state):
@@ -113,4 +107,13 @@ class QLAI(Node):
 
 	# Print some variables for debug here
 	def _on_DebugTimer_timeout(self):
-		pass
+		stats = Array(["max", "min", "avg"])
+		self.parent.logger.print_stats("update_state", stats)
+		# self.parent.logger.print_stats("max_q_val", stats)
+		# self.parent.logger.print_stats("reward", stats)
+		self.parent.logger.flush("update_state")
+		# self.parent.logger.flush("max_q_val")
+		# self.parent.logger.flush("reward")
+		# print("Max weight: ", util.apply_list_func(self.get_info(), max))
+		# print("Min weight: ", util.apply_list_func(self.get_info(), min))
+		# print("epsilon: {}".format(self.epsilon))

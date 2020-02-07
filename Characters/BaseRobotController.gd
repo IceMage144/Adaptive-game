@@ -2,9 +2,10 @@ extends Node
 
 const AINode = preload("res://Characters/AIs/AI.tscn")
 const ActionClass = preload("res://Characters/ActionBase.gd")
+const Logger = preload("res://Logger.gd")
 
 enum Feature { ENEMY_DIST, SELF_LIFE, ENEMY_LIFE, ENEMY_ATTACKING, ENEMY_DIR_X, ENEMY_DIR_Y, BIAS }
-enum AiType { PERCEPTRON, SINGLE, MEMORY, MULTI }
+enum AiType { PERCEPTRON, SINGLE, MEMORY, MULTI, PERCEPTRON_NATIVE, SINGLE_NATIVE, MEMORY_NATIVE, MULTI_NATIVE }
 
 const FEATURES_SIZE = Feature.BIAS + 1
 
@@ -12,14 +13,22 @@ const ai_path = {
 	AiType.PERCEPTRON: "res://Characters/AIs/PerceptronQLAI.py",
 	AiType.SINGLE: "res://Characters/AIs/SingleQLAI.py",
 	AiType.MEMORY: "res://Characters/AIs/MemoryQLAI.py",
-	AiType.MULTI: "res://Characters/AIs/MultiQLAI.py"
+	AiType.MULTI: "res://Characters/AIs/MultiQLAI.py",
+	AiType.PERCEPTRON_NATIVE: "res://Characters/AIs/PerceptronQLAI.gd",
+	AiType.SINGLE_NATIVE: "res://Characters/AIs/SingleQLAI.gd",
+	AiType.MEMORY_NATIVE: "res://Characters/AIs/MemoryQLAI.gd",
+	AiType.MULTI_NATIVE: "res://Characters/AIs/MultiQLAI.gd"
 }
 
 const ai_color = {
 	AiType.PERCEPTRON: Color(0.2, 1.0, 0.2, 1.0),
 	AiType.SINGLE: Color(1.0, 0.2, 0.2, 1.0),
 	AiType.MEMORY: Color(0.2, 0.2, 1.0, 1.0),
-	AiType.MULTI: Color(0.2, 1.0, 1.0, 1.0)
+	AiType.MULTI: Color(0.0, 1.0, 1.0, 1.0),
+	AiType.PERCEPTRON_NATIVE: Color(0.6, 1.0, 0.6, 1.0),
+	AiType.SINGLE_NATIVE: Color(1.0, 0.6, 0.6, 1.0),
+	AiType.MEMORY_NATIVE: Color(0.6, 0.6, 1.0, 1.0),
+	AiType.MULTI_NATIVE: Color(0.5, 1.0, 1.0, 1.0)
 }
 
 var ai
@@ -30,6 +39,7 @@ var parent
 var debug_mode = false
 var velocity = Vector2()
 
+onready var logger = Logger.new()
 onready var Action = ActionClass.new()
 
 func _is_aligned(act, vec):
@@ -149,7 +159,12 @@ func after_reset(timeout):
 
 func _on_ThinkTimer_timeout():
 	if self.can_think():
+		var ts = OS.get_ticks_msec()
+
 		self.ai.update_state(false, false)
+
+		var te = OS.get_ticks_msec()
+		self.logger.push("update_state", te - ts)
 
 # Print some variables for debug here
 func _on_DebugTimer_timeout():

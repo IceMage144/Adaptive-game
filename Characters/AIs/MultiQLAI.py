@@ -83,7 +83,7 @@ class MultiQLAI(QLAI):
 			exp_sample = self.ep.sample()
 			if not (exp_sample is None):
 				loss = self._update_weights_experience(exp_sample)
-				self.logger.push("loss", loss.item())
+				self.parent.logger.push("loss", loss.item())
 
 	def _get_q_values(self, state, action_list):
 		features = self._get_features(state)
@@ -112,7 +112,7 @@ class MultiQLAI(QLAI):
 		self.ep.add(experience)
 		exp_sample = self.ep.simple_sample()
 		self._update_weights_experience(exp_sample)
-		self.logger.push("reward", reward)
+		self.parent.logger.push("reward", reward)
 
 	def _update_weights_experience(self, exp_sample):
 		actual_val_vec = []
@@ -134,16 +134,6 @@ class MultiQLAI(QLAI):
 
 	# Print some variables for debug here
 	def _on_DebugTimer_timeout(self):
-		super(MultiQLAI, self)._on_DebugTimer_timeout()
 		print("------ MultiQLAI ------")
-		stats = ["max", "min", "avg"]
-		# self.logger.print_stats("update_state", stats)
-		# self.logger.print_stats("max_q_val", stats)
-		self.logger.print_stats("reward", stats)
-		# self.logger.flush("update_state")
-		# self.logger.flush("max_q_val")
-		self.logger.flush("reward")
-		# print("Max weight: ", util.apply_list_func(self.get_info(), max))
-		# print("Min weight: ", util.apply_list_func(self.get_info(), min))
-		# print("epsilon: {}".format(self.epsilon))
+		super(MultiQLAI, self)._on_DebugTimer_timeout()
 		# print(self.get_info())

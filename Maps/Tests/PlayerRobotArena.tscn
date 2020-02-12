@@ -4,7 +4,7 @@
 [ext_resource path="res://Maps/Tests/Arena.py" type="Script" id=2]
 [ext_resource path="res://Maps/Tests/BasicTileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Characters/Player/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Characters/Slime/Slime.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Characters/Goblin/Goblin.tscn" type="PackedScene" id=5]
 
 [node name="PlayerRobotArena" index="0" instance=ExtResource( 1 )]
 
@@ -19,12 +19,13 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 
 
 position = Vector2( 363.887, 303.758 )
 
-[node name="Slime" parent="Wall" index="1" groups=[
+[node name="Goblin" parent="Wall" index="1" groups=[
 "team2",
 ] instance=ExtResource( 5 )]
 
-position = Vector2( 765.332, 298.328 )
-ai_type = 4
+position = Vector2( 743.932, 302.105 )
+ai_type = 6
+learning_rate = 0.01
 
 [node name="TimeoutTimer" type="Timer" parent="." index="3"]
 

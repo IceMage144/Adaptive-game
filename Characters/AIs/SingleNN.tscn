@@ -2,12 +2,12 @@
 
 [ext_resource path="res://addons/brain-lib/NeuralNetwork1DAdam.gd" type="Script" id=1]
 [ext_resource path="res://addons/brain-lib/icons/nn1d_adam.png" type="Texture" id=2]
-[ext_resource path="res://bin/fully_connected.gdns" type="Script" id=3]
+[ext_resource path="res://addons/brain-lib/FullyConnected.gd" type="Script" id=3]
 [ext_resource path="res://addons/brain-lib/icons/fc.png" type="Texture" id=4]
-[ext_resource path="res://bin/tanh.gdns" type="Script" id=5]
+[ext_resource path="res://addons/brain-lib/Tanh.gd" type="Script" id=5]
 [ext_resource path="res://addons/brain-lib/icons/tanh.png" type="Texture" id=6]
 
-[node name="SingleNN" type="Node"]
+[node name="SingleNN" type="Node" index="0"]
 
 script = ExtResource( 1 )
 __meta__ = {

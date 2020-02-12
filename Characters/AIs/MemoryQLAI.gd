@@ -67,7 +67,9 @@ func _clear_memory():
 # State, Action, bool -> float
 func _get_q_value(state, action, change_memo=false):
 	var features = self._get_features_after_action(state, action)
-	return self.learning_model.forward(features, change_memo)[0]
+	if change_memo:
+		return self.learning_model.forward(features)[0]
+	return self.learning_model.predict_one(features)[0]
 
 # State, bool -> float
 func _compute_value_from_q_values(state, change_memo=false):
@@ -114,7 +116,7 @@ func _update_weights_experience(feat_sample, reward_sample, next_sample):
 			var label = [reward_sample[i][j] + self.discount * next_val]
 			label_vec[i].append(label)
 	
-	self.learning_model.train_sequence(feat_sample, label_vec)
+	self.learning_model.train(feat_sample, label_vec)
 
 # Print some variables for debug here
 func _on_DebugTimer_timeout():

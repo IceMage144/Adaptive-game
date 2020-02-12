@@ -66,7 +66,7 @@ func reset(timeout):
 # State, Array[Action] -> Array[float]
 func _get_q_values(state, action_list):
 	var features = self._get_features(state)
-	var output = self.learning_model.forward(features)
+	var output = self.learning_model.predict_one(features)
 	var q_values = []
 	for action in action_list:
 		q_values.append(output[self.action_to_id[action]])
@@ -104,7 +104,7 @@ func _update_weights_experience(feat_sample, reward_sample, next_sample, action_
 
 	for i in range(feat_sample.size()):
 		var next_val = self._compute_value_from_q_values(next_sample[i])
-		var q_values = self.learning_model.forward(feat_sample[i])
+		var q_values = self.learning_model.predict_one(feat_sample[i])
 		q_values[action_sample[i]] = reward_sample[i] + self.discount * next_val
 		label_vec.append(q_values)
 	

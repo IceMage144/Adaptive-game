@@ -54,7 +54,7 @@ func reset(timeout):
 # State, Action -> float
 func _get_q_value(state, action):
 	var features = self._get_features_after_action(state, action)
-	return self.learning_model.forward(features)[0]
+	return self.learning_model.predict_one(features)[0]
 
 # State -> float
 func _compute_value_from_q_values(state):

@@ -28,7 +28,7 @@ enabled=PoolStringArray( "brain-lib" )
 
 [gdnative]
 
-singletons=[ "res://pythonscript.gdnlib" ]
+singletons=[  ]
 
 [input]
 

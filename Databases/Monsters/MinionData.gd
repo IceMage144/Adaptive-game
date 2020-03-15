@@ -1,6 +1,6 @@
 extends "res://Databases/Monsters/MonsterDataBase.gd"
 
-enum AIType { PERCEPTRON, SINGLE, MEMORY, MULTI, PERCEPTRON_NATIVE, SINGLE_NATIVE, MEMORY_NATIVE, MULTI_NATIVE }
+enum AIType { PERCEPTRON, SINGLE, MEMORY, MULTI }
 
 const ATTRIBUTES = ["ai_type", "learning_activated", "learning_rate",
                     "discount", "max_exploration_rate", "min_exploration_rate",

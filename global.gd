@@ -132,6 +132,7 @@ func min(array):
 		mn = min(el, mn)
 	return mn
 
+# Returns the first index with the maximum value
 func argmax(array):
 	if array.size() == 0:
 		return null
@@ -142,6 +143,33 @@ func argmax(array):
 			mx = array[i]
 			idx = i
 	return idx
+
+# Returns the last index with the maximum value
+func torch_argmax(array):
+	if array.size() == 0:
+		return null
+	var mx = array[0]
+	var idx = 0
+	for i in range(1, array.size()):
+		if mx <= array[i]:
+			mx = array[i]
+			idx = i
+	return idx
+
+# Like argmax, but randomizes the result index if there are more than one
+# max value at the array
+func rand_argmax(array):
+	if array.size() == 0:
+		return null
+	var mx = array[0]
+	var idxs = [0]
+	for i in range(1, array.size()):
+		if mx < array[i]:
+			mx = array[i]
+			idxs = [i]
+		elif mx == array[i]:
+			idxs.append(i)
+	return idxs[randi_range(0, len(idxs) - 1)]
 
 func save_info(nodes):
 	var saveFile = File.new()

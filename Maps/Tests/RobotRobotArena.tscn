@@ -18,15 +18,14 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 
 "team1",
 ] instance=ExtResource( 4 )]
 
-position = Vector2( 747.589, 294.293 )
+position = Vector2( 576.969, 287.522 )
 ai_type = 6
-learning_rate = 0.005
 
 [node name="Goblin2" parent="Wall" index="1" groups=[
 "team2",
 ] instance=ExtResource( 4 )]
 
-position = Vector2( 258.03, 294.293 )
+position = Vector2( 479.586, 287.726 )
 ai_type = 2
 
 [node name="TimeoutTimer" type="Timer" parent="." index="3"]

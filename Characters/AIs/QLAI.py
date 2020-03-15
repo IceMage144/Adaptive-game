@@ -69,9 +69,7 @@ class QLAI(Node):
 	def get_action(self):
 		return self.last_action
 
-	def update_state(self, last=False, timeout=False):
-		state = self.parent.get_state()
-
+	def update_state(self, state, last=False, timeout=False):
 		if self.learning_activated:
 			self.time += self.think_time
 			reward = self.parent.get_reward(self.last_state, state, timeout)

@@ -74,9 +74,7 @@ func get_name():
 func get_action():
 	return self.last_action
 
-func update_state(last=False, timeout=False):
-	var state = self.parent.get_state()
-
+func update_state(state, last=False, timeout=False):
 	if self.learning_activated:
 		self.time += self.think_time
 		var reward = self.parent.get_reward(self.last_state, state, timeout)

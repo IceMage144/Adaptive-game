@@ -4,10 +4,8 @@ const AINode = preload("res://Characters/AIs/AI.tscn")
 const ActionClass = preload("res://Characters/ActionBase.gd")
 const Logger = preload("res://Logger.gd")
 
-enum Feature { ENEMY_DIST, SELF_LIFE, ENEMY_LIFE, ENEMY_ATTACKING, ENEMY_DIR_X, ENEMY_DIR_Y, BIAS }
+enum Feature { ENEMY_DIST, SELF_LIFE, ENEMY_LIFE, ENEMY_ATTACKING, ENEMY_DIR_X, ENEMY_DIR_Y, BIAS, FEATURES_SIZE }
 enum AiType { PERCEPTRON, SINGLE, MEMORY, MULTI, PERCEPTRON_NATIVE, SINGLE_NATIVE, MEMORY_NATIVE, MULTI_NATIVE }
-
-const FEATURES_SIZE = Feature.BIAS + 1
 
 const ai_path = {
 	AiType.PERCEPTRON: "res://Characters/AIs/PerceptronQLAI.py",
@@ -148,7 +146,7 @@ func can_think():
 	return self.parent.is_process_action(self.parent.action)
 
 func before_reset(timeout):
-	self.ai.update_state(true, timeout)
+	self.ai.update_state(self.get_state(), true, timeout)
 
 # Abstract
 func reset(timeout):
@@ -161,7 +159,7 @@ func _on_ThinkTimer_timeout():
 	if self.can_think():
 		var ts = OS.get_ticks_msec()
 
-		self.ai.update_state(false, false)
+		self.ai.update_state(self.get_state(), false, false)
 
 		var te = OS.get_ticks_msec()
 		self.logger.push("update_state", te - ts)

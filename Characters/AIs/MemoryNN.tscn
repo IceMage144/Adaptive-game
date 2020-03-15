@@ -36,19 +36,11 @@ __meta__ = {
 }
 size = 16
 depth = 4
+num_layers = 2
+dropout_rate = 0.0
 has_bias = true
 
-[node name="LSTM2" type="Node" parent="." index="2"]
-
-script = ExtResource( 5 )
-__meta__ = {
-"_editor_icon": ExtResource( 6 )
-}
-size = 16
-depth = 4
-has_bias = true
-
-[node name="FullyConnected2" type="Node" parent="." index="3"]
+[node name="FullyConnected2" type="Node" parent="." index="2"]
 
 script = ExtResource( 3 )
 __meta__ = {

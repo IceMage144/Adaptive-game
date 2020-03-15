@@ -31,7 +31,6 @@ func init(params):
 	self.learning_model.learning_rate = self.alpha
 	self.learning_model.input_size = self.features_size
 	self.learning_model.get_node("LSTM").depth = self.seq_size
-	self.learning_model.get_node("LSTM2").depth = self.seq_size
 	self.add_child(self.learning_model)
 
 # -> void

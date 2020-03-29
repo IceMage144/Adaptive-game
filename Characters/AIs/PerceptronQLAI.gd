@@ -6,7 +6,6 @@ extends "res://Characters/AIs/QLAI.gd"
 # Action   -> int
 
 const Experience = preload("res://Characters/AIs/Experience.gd")
-const NeuralNetwork = preload("res://Characters/AIs/MultiNN.tscn")
 
 var ep
 
@@ -18,25 +17,24 @@ func init(params):
 	if params.has("network_id") and params.network_id != null:
 		var character_type = params.character_type
 		var network_id = params.network_id
-		self.network_key = character_type + "_PerceptronQLAINative_" + network_id
-	for i in range(self.features_size):
-		self.learning_weights.append(2.0 * randf() + 1.0)
-	# persisted_params = self.load_params()
-	# if not (persisted_params is None):
-	# 	self.learning_weights = persisted_params.get("model_params")
-	# 	self.time = persisted_params.get("time")
+		self.network_key = character_type + "_PerceptronQLAI_" + str(network_id)
+
+	var persisted_params = self.load_params()
+	if persisted_params != null:
+		self.learning_weights = persisted_params.model
+		self.time = persisted_params.time
+	else:
+		for i in range(self.features_size):
+			self.learning_weights.append(2.0 * randf() + 1.0)
 
 func end():
-	# persistence_dict = {
-	# 	"time": self.time,
-	# 	"model_params": self.learning_weights
-	# }
-	# self.save_params(persistence_dict)
-	pass
+	self.save_params({
+		"model": self.learning_weights,
+		"time": self.time
+	})
 
 func get_info():
-	# return util.py2gdArray(self.learning_weights.tolist())
-	pass
+	return []
 
 func _get_q_value(state, action):
 	var out = self._get_features_after_action(state, action)
@@ -87,4 +85,3 @@ func _update_weights(state, action, next_state, reward, last):
 func _on_DebugTimer_timeout():
 	print("------ PerceptronQLAI ------")
 	._on_DebugTimer_timeout()
-	# print(self.get_info())

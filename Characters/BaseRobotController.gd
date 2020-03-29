@@ -71,6 +71,7 @@ func init(params):
 		"initial_action": Action.IDLE,
 		"character_type": params.character_type,
 		"network_id": params.network_id,
+		"can_save": params.can_save,
 		"debug_mode": self.debug_mode
 	})
 	$DebugTimer.connect("timeout", self.ai, "_on_DebugTimer_timeout")

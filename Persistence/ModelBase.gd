@@ -1,10 +1,13 @@
 extends Node
 
+var tag
+var model
+
 var _cached_data = {}
 
 func _ready():
-	var tag = self._get_tag()
-	var model = self._get_model()
+	tag = self._get_tag()
+	model = self._get_model()
 	# Assert that the inherited class sets an unique tag
 	assert(tag != "")
 	# Assert that the inherited class sets a model
@@ -45,8 +48,6 @@ func get_data(key):
 	return self._cached_data[key]
 
 func set_data(key, value):
-	var model = self._get_model()
-	var tag = self._get_tag()
 	# Assert that key exists
 	assert(model.has(key))
 	# Assert that the value is the right type

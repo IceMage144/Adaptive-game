@@ -40,21 +40,29 @@ func init(params):
 	if params.has("network_id") and params.network_id != null:
 		var character_type = params.character_type
 		var network_id = params.network_id
-		self.network_key = character_type + "_MultiQLAINative_" + network_id
+		self.network_key = character_type + "_MultiQLAI_" + str(network_id)
+
 	self.learning_model = NeuralNetwork.instance()
 	self.learning_model.learning_rate = self.alpha
 	self.learning_model.input_size = self.features_size
 	self.learning_model.get_node("FullyConnected2").size = self.action_to_id.size()
 	self.add_child(self.learning_model)
 
+	var persisted_params = self.load_params()
+	if persisted_params != null:
+		self.learning_model.load(persisted_params.model)
+		self.time = persisted_params.time
+
 # -> void
 func end():
-	pass
+	self.save_params({
+		"model": self.learning_model.save(),
+		"time": self.time
+	})
 
 # -> void
 func get_info():
-	# return util.py2gdArray([param.tolist() for param in self.learning_model.parameters()])
-	pass
+	return []
 
 # bool -> void
 func reset(timeout):
@@ -114,4 +122,3 @@ func _update_weights_experience(feat_sample, reward_sample, next_sample, action_
 func _on_DebugTimer_timeout():
 	print("------ MultiQLAI ------")
 	._on_DebugTimer_timeout()
-	# print(self.get_info())

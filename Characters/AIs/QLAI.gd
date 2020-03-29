@@ -13,6 +13,7 @@ var think_time
 var features_size
 var last_state
 var last_action
+var can_save
 var debug_mode
 
 var network_key = null
@@ -37,6 +38,7 @@ func init(params):
 	self.features_size = params["features_size"]
 	self.last_state = params["initial_state"]
 	self.last_action = params["initial_action"]
+	self.can_save = params["can_save"]
 	self.debug_mode = params["debug_mode"]
 
 func reset(timeout):
@@ -47,22 +49,18 @@ func end():
 	pass
 
 func load_params():
-	# if self.network_key is None:
-	# 	return None
-	# ascii_data = NNParamsManager.get_params(self.network_key)
-	# if ascii_data is None:
-	# 	return None
-	# bytes_data = base64.decodebytes(ascii_data.encode())
-	# return pickle.loads(bytes_data)
-	pass
+	if self.network_key == null:
+		return null
+	var data = NNParamsManager.get_params(self.network_key)
+	if data == null:
+		return null
+	return Marshalls.base64_to_variant(data)
 
 func save_params(params):
-	# if self.network_key == null:
-	# 	return
-	# var bytes_data = pickle.dumps(params)
-	# var ascii_data = base64.encodebytes(bytes_data).decode()
-	# NNParamsManager.set_params(self.network_key, ascii_data)
-	pass
+	if self.network_key == null or not self.can_save:
+		return
+	var data = Marshalls.variant_to_base64(params)
+	NNParamsManager.set_params(self.network_key, data)
 
 func get_loss():
 	# return util.py2gdArray(self.logger.get_stored("loss"))
@@ -115,6 +113,4 @@ func _on_DebugTimer_timeout():
 	self.parent.logger.flush("update_state")
 	# self.logger.flush("max_q_val")
 	# self.logger.flush("reward")
-	# print("Max weight: ", util.apply_list_func(self.get_info(), max))
-	# print("Min weight: ", util.apply_list_func(self.get_info(), min))
 	# print("epsilon: {}".format(self.epsilon))

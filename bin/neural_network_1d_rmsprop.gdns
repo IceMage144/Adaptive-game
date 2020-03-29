@@ -1,0 +1,9 @@
+[gd_resource type="NativeScript" load_steps=2 format=2]
+
+[ext_resource path="res://bin/brain.gdnlib" type="GDNativeLibrary" id=1]
+
+[resource]
+
+resource_name = "NeuralNetwork1DRMSprop"
+class_name = "NeuralNetwork1DRMSprop"
+library = ExtResource( 1 )

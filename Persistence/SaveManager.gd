@@ -31,7 +31,7 @@ func load_data(key):
 func commit_data():
 	var save_file = File.new()
 	save_file.open(SAVE_PATH, File.WRITE)
-	save_file.store_string(JSON.print(self.cached_data))
+	save_file.store_string(JSON.print(self.cached_data, " "))
 	save_file.close()
 	print("Commited changes")
 

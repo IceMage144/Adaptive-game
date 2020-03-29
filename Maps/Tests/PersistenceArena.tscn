@@ -18,7 +18,6 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 
 [node name="Player" parent="Wall" index="0" instance=ExtResource( 4 )]
 
 position = Vector2( 363.887, 303.758 )
-learning_activated = true
 
 [node name="Goblin" parent="Wall" index="1" groups=[
 "team2",
@@ -27,8 +26,6 @@ learning_activated = true
 position = Vector2( 739.891, 305.643 )
 collision_layer = 1
 collision_mask = 1
-ai_type = 0
-learning_activated = true
 
 [node name="TimeoutTimer" type="Timer" parent="." index="3"]
 

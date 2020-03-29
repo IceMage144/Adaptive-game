@@ -58,9 +58,9 @@ func choose_one(array, include_null=false, a=-1, b=-1):
 		a = 0
 	if b == -1:
 		b = array.size() - 1
-	var size = b - a + int(include_null)
-	var rand_num = global.randi_range(a, a + size)
-	if include_null and rand_num == a + size:
+	b += int(include_null)
+	var rand_num = global.randi_range(a, b)
+	if include_null and rand_num == b:
 		return null
 	return array[rand_num]
 

@@ -38,6 +38,7 @@ var action = ActionClass.compose(ActionClass.IDLE, ActionClass.DOWN)
 var can_act = true
 var controller
 var controller_name
+var can_save = true
 var network_id = null
 var knockback = Vector2()
 var invulnerable = false
@@ -65,6 +66,7 @@ func _init_ai_controller(params):
 		"think_time": self.think_time,
 		"character_type": self.character_type,
 		"network_id": self.network_id,
+		"can_save": self.can_save,
 		"debug_mode": self.debug_mode
 	}
 	for key in init_params.keys():
@@ -95,6 +97,7 @@ func _ready():
 
 func init(params):
 	self.network_id = global.dict_get(params, "network_id", null)
+	self.can_save = global.dict_get(params, "can_save", true)
 	if params.has("damage"):
 		# Assert damage is positive
 		assert(params.damage >= 0)

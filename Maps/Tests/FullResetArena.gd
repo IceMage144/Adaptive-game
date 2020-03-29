@@ -14,7 +14,7 @@ func _ready():
 		var off = 2 * self.tile_size
 		character.position = Vector2(off + self.arena_width * randf(), \
 									 off + self.arena_height * randf())
-		character.init({"network_id": 1})
+		character.init({"network_id": 0})
 
 func init(params):
 	pass
@@ -23,7 +23,7 @@ func print_info():
 	var loss_info = {}
 	print("------------")
 	for character in self.get_tree().get_nodes_in_group("robot"):
-		team = global.get_team(character)
+		var team = global.get_team(character)
 		print(character.get_pretty_name() + ": " + str(character.life) + " (" + team + ")")
 		if not loss_info.has(team):
 			loss_info[team] = {}
@@ -43,7 +43,7 @@ func reset(timeout):
 		character.end()
 
 	var main = global.find_entity("main")
-	main.change_map("res://Maps/Tests/PersistenceArena.tscn")
+	main.change_map(load("res://Maps/Tests/PersistenceArena.tscn"))
 
 func _on_character_death():
 	self.reset(false)

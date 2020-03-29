@@ -5,7 +5,7 @@
 [ext_resource path="res://Maps/Tests/BasicTileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Characters/Goblin/Goblin.tscn" type="PackedScene" id=4]
 
-[node name="RobotRobotTest" index="0" instance=ExtResource( 1 )]
+[node name="RobotRobotTest" instance=ExtResource( 1 )]
 
 script = ExtResource( 2 )
 
@@ -19,14 +19,12 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 
 ] instance=ExtResource( 4 )]
 
 position = Vector2( 576.969, 287.522 )
-ai_type = 2
 
 [node name="Goblin2" parent="Wall" index="1" groups=[
 "team2",
 ] instance=ExtResource( 4 )]
 
 position = Vector2( 479.586, 287.726 )
-ai_type = 2
 
 [node name="TimeoutTimer" type="Timer" parent="." index="3"]
 

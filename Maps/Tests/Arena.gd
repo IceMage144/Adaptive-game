@@ -16,8 +16,9 @@ func _ready():
 	for character in self.get_tree().get_nodes_in_group("character"):
 		self.initial_positions[character.name] = character.position
 		character.connect("character_death", self, "_on_character_death", [character])
-		character.init({})
-		# character.init({"network_id": character.name})
+		character.init({
+			"network_id": character.name
+		})
 
 func init(params):
 	pass
